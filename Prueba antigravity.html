@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ELE Multiespacio — Entradas & Tragos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    :root {
+      --bg: #030303;
+      --surface: #0a0a0a;
+      --card: rgba(15, 15, 15, 0.7);
+      --border: rgba(255, 215, 0, 0.15);
+      --border-light: rgba(255, 255, 255, 0.08);
+      --gold-primary: #D4AF37;
+      --gold-light: #F3E5AB;
+      --gold-dark: #996515;
+      --silver: #C0C0C0;
+      --text: #F8F8F8;
+      --muted: #A0A0A0;
+      --gradient-main: linear-gradient(135deg, #111, #222);
+      --gradient-gold: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+      --gradient-silver: linear-gradient(135deg, #8A8B8F, #E5E6EA, #8A8B8F);
+      --glass-blur: blur(12px);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; min-height: 100vh; overflow-x: hidden; }
+
+    .orbs { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; background: radial-gradient(circle at 50% 0%, rgba(20,20,20,1) 0%, rgba(3,3,3,1) 80%); }
+    .orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15; animation: drift 15s ease-in-out infinite alternate; }
+    .orb-1 { width: 600px; height: 600px; background: var(--gold-dark); top: -200px; left: -100px; animation-delay: 0s; }
+    .orb-2 { width: 500px; height: 500px; background: rgba(255,255,255,0.1); top: 40%; right: -150px; animation-delay: -5s; }
+    .orb-3 { width: 400px; height: 400px; background: var(--gold-primary); bottom: 5%; left: 15%; animation-delay: -10s; }
+    @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px,20px) scale(1.05); } }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes luxury-shine {
+        0%, 100% { filter: drop-shadow(0 0 15px rgba(212,175,55,0.3)); }
+        50% { filter: drop-shadow(0 0 35px rgba(212,175,55,0.6)); }
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* +18 TOP BANNER */
+    .age-banner {
+      background: rgba(15,15,15,0.8);
+      border-bottom: 1px solid var(--border-light);
+      padding: 10px 0; text-align: center;
+      font-size: .82rem; font-weight: 500; letter-spacing: 2px; color: var(--gold-light);
+    }
+    .age-banner span { opacity: .6; color: var(--muted); margin: 0 8px; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; backdrop-filter: var(--glass-blur); background: rgba(3,3,3,0.85); border-bottom: 1px solid var(--border-light); padding: 15px 0; }
+    nav .container { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 4px; color: #fff; white-space: nowrap; }
+    .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: .82rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; transition: color .25s; }
+    .nav-links a:hover { color: var(--gold-light); }
+
+    /* HERO */
+    .hero { padding: 90px 0 70px; text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(212,175,55,.1); border: 1px solid var(--border); color: var(--gold-light); padding: 8px 24px; border-radius: 99px; font-size: .75rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 24px; animation: luxury-glow 3s ease-in-out infinite; backdrop-filter: var(--glass-blur); }
+    @keyframes luxury-glow { 0%,100% { box-shadow: 0 0 0 0 rgba(212,175,55,.1); } 50% { box-shadow: 0 0 20px rgba(212,175,55,.3); } }
+    .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 12vw, 9rem); line-height: .9; letter-spacing: 8px; margin-bottom: 16px; color: #ffffff; animation: luxury-shine 4s ease-in-out infinite; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+    .hero-sub { font-size: 1rem; color: var(--muted); max-width: 520px; margin: 0 auto 12px; line-height: 1.7; font-weight: 300; }
+    .hero-date { font-family: 'Bebas Neue', sans-serif; letter-spacing: 4px; font-size: 1.4rem; background: var(--gradient-silver); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 36px; }
+    .hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* BUTTONS */
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 32px; border-radius: 4px; font-size: .85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border: none; text-decoration: none; transition: all .3s ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: #fff; color: #000; box-shadow: 0 10px 30px rgba(255,255,255,.1); }
+    .btn-primary:hover { box-shadow: 0 15px 40px rgba(255,255,255,.2); background: #eee; }
+    .btn-gold { background: var(--gradient-gold); color: #000; box-shadow: 0 10px 30px rgba(212,175,55,.2); font-weight: 700; }
+    .btn-gold:hover { box-shadow: 0 15px 40px rgba(212,175,55,.4); }
+    .btn-outline { background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); color: #fff; backdrop-filter: var(--glass-blur); }
+    .btn-outline:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3); }
+    .btn-full { width: 100%; justify-content: center; }
+
+    /* SECTION TITLES */
+    .section-label { font-size: .75rem; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 12px; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: 5px; line-height: 1; margin-bottom: 16px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+    .section-desc { color: var(--muted); max-width: 480px; line-height: 1.7; margin-bottom: 48px; font-weight: 300; }
+
+    /* INFO STRIP */
+    .info-strip { background: rgba(15,15,15,0.7); backdrop-filter: var(--glass-blur); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); padding: 40px 0; }
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    @media(max-width:640px){ .info-grid { grid-template-columns: 1fr; gap: 24px; } }
+    .info-item { text-align: center; }
+    .info-icon { font-size: 1.8rem; margin-bottom: 12px; filter: grayscale(100%) brightness(1.5); }
+    .info-item strong { display: block; font-size: .9rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 4px; text-transform: uppercase; }
+    .info-item span { color: var(--muted); font-size: .85rem; font-weight: 300; }
+
+    /* +18 INLINE WARNING */
+    .age-warning-box {
+      background: linear-gradient(135deg, rgba(255,45,120,.07), rgba(191,95,255,.07));
+      border: 1px solid rgba(255,45,120,.25); border-radius: 14px;
+      padding: 18px 24px; display: flex; align-items: center; gap: 16px; margin-bottom: 36px;
+    }
+    .age-warning-box .aw-icon { font-size: 2.2rem; flex-shrink: 0; }
+    .age-warning-box strong { display: block; color: var(--neon-pink); font-size: .95rem; margin-bottom: 3px; }
+    .age-warning-box p { color: var(--muted); font-size: .83rem; line-height: 1.55; }
+
+    /* ENTRADAS */
+    #entradas { padding: 80px 0 60px; }
+
+    /* ENTRADA GENERAL */
+    .ticket-general {
+      background: var(--card); border: 1px solid var(--border); backdrop-filter: var(--glass-blur);
+      border-radius: 8px; padding: 40px; position: relative; overflow: hidden; margin-bottom: 40px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center;
+    }
+    @media(max-width:640px){ .ticket-general { grid-template-columns: 1fr; } }
+    .ticket-general::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient-gold); }
+    .tg-badge { position: absolute; top: 16px; right: 16px; background: rgba(212,175,55,.1); color: var(--gold-light); font-size: .65rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; border-radius: 99px; border: 1px solid var(--border); }
+    .tg-icon { font-size: 2.2rem; margin-bottom: 10px; filter: grayscale(100%); }
+    .tg-name { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 3px; margin-bottom: 8px; color: #fff; }
+    .tg-desc { color: var(--muted); font-size: .9rem; line-height: 1.7; margin-bottom: 20px; font-weight: 300; }
+    .tg-features { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+    .tg-features li { background: rgba(255,255,255,.03); border: 1px solid var(--border-light); border-radius: 4px; padding: 6px 16px; font-size: .8rem; display: flex; align-items: center; gap: 8px; color: var(--text); }
+    .tick { color: var(--neon-green); }
+    .tg-right { text-align: center; min-width: 180px; }
+    .tg-price { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; letter-spacing: 2px; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; margin-bottom: 4px; }
+    .tg-price-note { color: var(--muted); font-size: .8rem; margin-bottom: 20px; }
+
+    /* COMBOS */
+    .combos-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 4px; color: var(--gold-light); margin-bottom: 8px; }
+    .combos-sub { color: var(--muted); font-size: .9rem; margin-bottom: 30px; font-weight: 300; }
+    .combos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+
+    .combo-card { background: var(--card); border: 1px solid var(--border-light); backdrop-filter: var(--glass-blur); border-radius: 8px; padding: 32px; position: relative; overflow: hidden; transition: all .4s cubic-bezier(0.165, 0.84, 0.44, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .combo-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--border-light); transition: background .4s; }
+    .combo-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.8); border-color: rgba(212,175,55,0.4); }
+    .combo-card:hover::before { background: var(--gradient-gold); height: 2px; }
+
+    .combo-badge { display: inline-block; font-size: .65rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 6px 14px; border-radius: 99px; margin-bottom: 16px; border: 1px solid var(--border); }
+    .b-gold { background: rgba(212,175,55,.1); color: var(--gold-light); }
+    .b-pink { background: rgba(255,255,255,.05); color: var(--silver); }
+    .b-cyan { background: rgba(255,255,255,.05); color: var(--text); }
+
+    .combo-icon { font-size: 2rem; margin-bottom: 12px; filter: grayscale(100%); }
+    .combo-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; margin-bottom: 8px; color: #fff; }
+    .combo-desc { color: var(--muted); font-size: .85rem; line-height: 1.6; margin-bottom: 16px; font-weight: 300; }
+    .combo-includes { list-style: none; margin-bottom: 24px; }
+    .combo-includes li { padding: 8px 0; font-size: .85rem; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border-light); color: var(--text); font-weight: 300; }
+    .combo-includes li:last-child { border-bottom: none; }
+    .combo-price { font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem; letter-spacing: 2px; color: #fff; margin-bottom: 4px; }
+    .combo-savings { font-size: .75rem; color: var(--gold-primary); font-weight: 500; margin-bottom: 24px; letter-spacing: 1px; }
+
+    /* TRAGOS */
+    #tragos { padding: 80px 0; }
+    .promo-header { text-align: center; margin-bottom: 40px; padding: 32px; background: rgba(15,15,15,0.6); backdrop-filter: var(--glass-blur); border: 1px solid var(--border-light); border-radius: 8px; }
+    .promo-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: 6px; color: #fff; margin-bottom: 12px; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+    .promo-horario { display: inline-block; background: rgba(212,175,55,.1); border: 1px solid var(--border); color: var(--gold-light); padding: 8px 20px; border-radius: 99px; font-size: .75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-top: 10px; }
+
+    .drinks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+
+    .drink-card { background: var(--card); backdrop-filter: var(--glass-blur); border: 1px solid var(--border-light); border-radius: 8px; padding: 30px; display: flex; flex-direction: column; transition: all .3s ease; cursor: pointer; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+    .drink-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--border-light); transition: background .3s; }
+    .drink-card:hover { transform: translateY(-4px); border-color: rgba(212,175,55,.3); box-shadow: 0 15px 40px rgba(0,0,0,0.7); }
+    .drink-card:hover::before { background: var(--gradient-gold); height: 2px; }
+    .drink-card.selected { border-color: var(--gold-primary); box-shadow: 0 0 40px rgba(212,175,55,.15); }
+    .drink-card.selected::before { background: var(--gradient-gold); height: 2px; }
+    .drink-card.selected::after { content: '✓'; position: absolute; top: 16px; right: 16px; background: var(--gold-primary); color: #000; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; }
+    .drink-emoji { font-size: 2.2rem; margin-bottom: 14px; filter: grayscale(100%); }
+    .drink-name  { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; margin-bottom: 4px; color: #fff; }
+    .drink-mix   { font-size: .85rem; color: var(--gold-light); font-weight: 500; margin-bottom: 12px; }
+    .drink-desc  { color: var(--muted); font-size: .85rem; line-height: 1.6; flex: 1; margin-bottom: 18px; font-weight: 300; }
+    .drink-footer { display: flex; align-items: center; justify-content: space-between; }
+    .drink-price { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: #fff; }
+    .drink-tag-ef { font-size: .65rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border-light); padding: 4px 12px; border-radius: 99px; }
+
+    /* ORDER PANEL */
+    .order-panel { background: var(--card); backdrop-filter: var(--glass-blur); border: 1px solid var(--border-light); border-radius: 8px; padding: 40px; margin-top: 60px; box-shadow: 0 15px 50px rgba(0,0,0,0.6); }
+    .op-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 3px; margin-bottom: 8px; color: #fff; }
+    .op-sub   { color: var(--muted); font-size: .9rem; margin-bottom: 32px; font-weight: 300; }
+    .o-step   { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 32px; }
+    .step-num { min-width: 36px; height: 36px; border-radius: 50%; background: #fff; color: #000; font-weight: 700; font-size: .9rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .o-form   { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media(max-width:600px){ .o-form { grid-template-columns: 1fr; } }
+    label { font-size: .8rem; color: var(--muted); display: block; margin-bottom: 8px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+    input[type=text], input[type=email], select { width: 100%; background: rgba(0,0,0,0.5); border: 1px solid var(--border-light); border-radius: 4px; color: var(--text); font-family: 'Montserrat', sans-serif; font-size: .9rem; padding: 14px 18px; outline: none; transition: all .3s; }
+    input:focus, select:focus { border-color: var(--gold-primary); background: rgba(10,10,10,0.8); }
+    select option { background: var(--bg); }
+
+    .sdp { display: none; background: rgba(255,255,255,.03); border: 1px solid var(--border-light); border-radius: 6px; padding: 16px 20px; margin-bottom: 20px; align-items: center; gap: 16px; }
+    .sdp.on { display: flex; }
+    .sdp-info strong { display: block; font-size: 1rem; color: #fff; margin-bottom: 4px; }
+    .sdp-info span   { color: var(--muted); font-size: .85rem; font-weight: 300; }
+
+    .pr-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-light); font-size: .9rem; font-weight: 300; }
+    .pr-row:last-child { border-bottom: none; }
+    .pr-row .amt { font-weight: 500; color: #fff; }
+    .pr-total { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 2px; color: #fff; }
+
+    .efectivo-note { margin-top: 20px; padding: 16px 20px; background: rgba(255,255,255,.03); border-left: 3px solid var(--gold-primary); border-radius: 0 4px 4px 0; font-size: .85rem; color: var(--muted); line-height: 1.6; }
+    .efectivo-note strong { color: #fff; }
+
+    /* CART PANEL */
+    .cart-btn { position: fixed; bottom: 30px; right: 30px; background: var(--gradient-gold); color: #000; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; z-index: 100; box-shadow: 0 10px 30px rgba(212,175,55,0.4); border: none; transition: transform .3s; }
+    .cart-btn:hover { transform: scale(1.1); }
+    .cart-btn .badge { position: absolute; top: -5px; right: -5px; background: var(--neon-pink); color: white; width: 22px; height: 22px; border-radius: 50%; font-size: 0.75rem; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+    
+    .cart-panel { position: fixed; top: 0; right: -400px; width: 400px; height: 100vh; background: rgba(10,10,10,0.98); backdrop-filter: var(--glass-blur); border-left: 1px solid var(--border-light); z-index: 1000; transition: right .4s cubic-bezier(0.165, 0.84, 0.44, 1); display: flex; flex-direction: column; box-shadow: -10px 0 50px rgba(0,0,0,0.8); }
+    .cart-panel.on { right: 0; }
+    @media(max-width: 400px){ .cart-panel { width: 100%; right: -100%; } }
+    .cart-header { padding: 24px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; }
+    .cart-header h3 { color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; }
+    .cart-close { background: none; border: none; color: var(--muted); font-size: 1.5rem; cursor: pointer; transition: color .2s; }
+    .cart-close:hover { color: #fff; }
+    .cart-body { flex: 1; overflow-y: auto; padding: 24px; }
+    .cart-item { display: flex; justify-content: space-between; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .cart-item-info h4 { color: #fff; font-size: 0.95rem; margin-bottom: 4px; }
+    .cart-item-info p { color: var(--gold-primary); font-size: 0.85rem; font-weight: 600; }
+    .cart-item-controls { display: flex; align-items: center; gap: 12px; }
+    .qty-btn { background: rgba(255,255,255,0.1); border: none; color: #fff; width: 28px; height: 28px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: background .2s; }
+    .qty-btn:hover { background: var(--gold-primary); color: #000; }
+    .qty-display { color: #fff; font-weight: 600; font-size: 0.9rem; min-width: 20px; text-align: center; }
+    .cart-footer { padding: 24px; border-top: 1px solid var(--border-light); background: rgba(0,0,0,0.5); }
+    .cart-total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .cart-total span { color: var(--muted); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+    .cart-total strong { color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 2px; }
+    .cart-empty { text-align: center; color: var(--muted); padding: 40px 0; font-size: 0.9rem; }
+
+    /* MODALS */
+    .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.92); backdrop-filter: var(--glass-blur); z-index: 999; align-items: center; justify-content: center; }
+    .modal-bg.on { display: flex; }
+    .modal-box { background: rgba(10,10,10,0.95); border: 1px solid var(--border-light); border-radius: 12px; padding: 44px 36px; max-width: 420px; width: 90%; text-align: center; position: relative; animation: pop .4s cubic-bezier(.165,.84,.44,1); box-shadow: 0 20px 60px rgba(0,0,0,0.8); }
+    .modal-box.purple-b { border-color: rgba(255,255,255,0.2); box-shadow: 0 0 50px rgba(255,255,255,0.05); }
+    .modal-box.gold-b   { border-color: var(--gold-primary); box-shadow: 0 0 50px rgba(212,175,55,0.15); }
+    @keyframes pop { from { transform: scale(.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .m-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: var(--muted); font-size: 1.8rem; cursor: pointer; transition: color .2s; }
+    .m-close:hover { color: #fff; }
+    .m-icon  { font-size: 3rem; margin-bottom: 16px; filter: grayscale(100%); }
+    .m-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 3px; margin-bottom: 12px; color: #fff; }
+    .m-desc  { color: var(--muted); font-size: .9rem; line-height: 1.7; margin-bottom: 24px; font-weight: 300; }
+    .qr-wrap { display: flex; justify-content: center; margin-bottom: 24px; }
+    .qr-wrap canvas { border-radius: 8px; padding: 16px; background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .qr-code { font-family: 'Bebas Neue', sans-serif; letter-spacing: 4px; font-size: 1.2rem; padding: 12px 24px; border-radius: 4px; display: inline-block; margin-bottom: 16px; }
+    .qr-code.purple { color: #fff; background: rgba(255,255,255,.05); border: 1px solid var(--border-light); }
+    .qr-code.gold   { color: var(--gold-light); background: rgba(212,175,55,.1); border: 1px solid var(--gold-primary); }
+    .qr-note { font-size: .85rem; color: var(--muted); line-height: 1.6; font-weight: 300; }
+
+    /* AGE GATE REMOVED OLD OVERLAY STYLES */
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(80px); background: #fff; color: #000; font-weight: 600; font-size: .85rem; padding: 14px 28px; border-radius: 4px; z-index: 9999; opacity: 0; transition: all .4s cubic-bezier(.2,1.4,.5,1); white-space: nowrap; box-shadow: 0 10px 30px rgba(0,0,0,0.5); letter-spacing: 1px; }
+    .toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.warn { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--border-light); backdrop-filter: var(--glass-blur); }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 50px 0; border-top: 1px solid var(--border-light); color: var(--muted); font-size: .85rem; font-weight: 300; background: rgba(5,5,5,0.8); }
+    footer strong { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 4px; color: #fff; display: block; margin-bottom: 12px; }
+    ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; } ::-webkit-scrollbar-thumb:hover { background: var(--gold-primary); }
+    @media(max-width:480px){ .ticket-general,.order-panel { padding: 22px; } .combo-card { padding: 20px; } }
+  </style>
+</head>
+<body>
+
+<!-- ORBS -->
+<div class="orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
+
+<!-- +18 BANNER -->
+<div class="age-banner">
+  🔞 Venta de bebidas alcohólicas exclusiva para mayores de 18 años
+  <span>·</span> Está prohibida su venta a menores · Bebé con responsabilidad
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <span class="nav-logo">ELE Multiespacio</span>
+    <div class="nav-links">
+      <a href="#entradas">Entradas</a>
+      <a href="#tragos">Promo Botellas</a>
+      <a href="https://www.instagram.com/ele_multiespacio?igsh=N3YzeGxja2g1bDE5" target="_blank" style="color: var(--neon-cyan);">Instagram</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <video src="Logo_illuminates_bowling_202604230049.mp4" autoplay loop muted playsinline style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%; border: 2px solid var(--gold-primary); box-shadow: 0 0 30px rgba(212,175,55, 0.4); margin-bottom: 24px; pointer-events: none;"></video><br>
+    <div class="hero-badge" id="heroBadge">🔥 Cargando...</div>
+    <h1>ELE<br>MULTIESPACIO</h1>
+    <p class="hero-sub">Los viernes son de ele, ninguno como nosotros, porque somos los mejores del condado.</p>
+    <div class="hero-date" id="heroDate">—</div>
+    <div class="hero-ctas">
+      <a href="#entradas" class="btn btn-primary">🎟️ Comprar Entrada</a>
+      <a href="#tragos"   class="btn btn-gold">🍾 Promo Botellas</a>
+    </div>
+  </div>
+</section>
+
+<!-- INFO STRIP -->
+<div class="info-strip">
+  <div class="container">
+    <div class="info-grid">
+      <div class="info-item"><div class="info-icon">📍</div><strong>Ubicación</strong><span>Comodoro Rivadavia, Chubut</span></div>
+      <div class="info-item"><div class="info-icon">🕛</div><strong>Solo los Viernes</strong><span>Apertura de puertas: 02:00 am</span></div>
+      <div class="info-item"><div class="info-icon">🪩</div><strong>Música</strong><span>RKT · Guaracha · Funk</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ENTRADAS -->
+<section id="entradas">
+  <div class="container" style="padding-top:80px; padding-bottom:60px;">
+    <div class="section-label">Anticipadas · Solo Viernes</div>
+    <h2 class="section-title">COMPRÁ<br>TU ENTRADA</h2>
+    <p class="section-desc">Elegí la entrada que más te conviene: sola o en combo con consumiciones. Más barato que en la puerta.</p>
+
+    <!-- +18 WARNING -->
+    <div class="age-warning-box">
+      <div class="aw-icon">🔞</div>
+      <div>
+        <strong>Solo mayores de 18 años</strong>
+        <p>Los combos con bebidas alcohólicas son exclusivos para mayores de 18. Se controlará DNI en la entrada del evento. Es obligatorio por ley.</p>
+      </div>
+    </div>
+
+    <!-- ENTRADA GENERAL -->
+    <div class="ticket-general">
+      <div class="tg-badge">⭐ Más vendida</div>
+      <div>
+        <div class="tg-icon">🎟️</div>
+        <div class="tg-name">Entrada General + Trago Gratis</div>
+        <div class="tg-desc">La entrada anticipada de ELE. Incluye acceso + 1 trago gratis a tu elección en la barra. QR personal para presentar en puerta.</div>
+        <ul class="tg-features">
+          <li><span class="tick">✓</span> Entrada a ELE Multiespacio</li>
+          <li><span class="tick">✓</span> 1 trago gratis a elección</li>
+          <li><span class="tick">✓</span> QR de ingreso personalizado</li>
+          <li><span class="tick">✓</span> Acceso prioritario</li>
+        </ul>
+        <button class="btn btn-primary" onclick="addToCart('general', 'Entrada General', 6000)">Agregar al Carrito 🛒</button>
+      </div>
+      <div class="tg-right">
+        <div class="tg-price">$6.000</div>
+        <div class="tg-price-note">Precio anticipado · Pago único</div>
+      </div>
+    </div>
+
+    <!-- COMBOS -->
+    <div class="combos-title">🍾 COMBOS ESPECIALES</div>
+    <div class="combos-sub">Entrada más consumiciones. Elegís, pagás y listo.</div>
+    <div class="combos-grid">
+
+      <div class="combo-card pink-c">
+        <span class="combo-badge b-pink">🍺 Nacional</span>
+        <div class="combo-icon">🎟️🍺</div>
+        <div class="combo-name">Entrada + 3 Nacionales</div>
+        <div class="combo-desc">Entrada anticipada + 3 consumiciones de trago nacional. Para arrancar sin preocuparte por la barra.</div>
+        <ul class="combo-includes">
+          <li><span class="tick">✓</span> Entrada a ELE Multiespacio</li>
+          <li><span class="tick">✓</span> 3 consumiciones de trago nacional</li>
+          <li><span class="tick">✓</span> QR de ingreso + QR de barra</li>
+          <li><span class="tick">✓</span> Sin fila en la barra</li>
+        </ul>
+        <div class="combo-price">$14.000</div>
+        <div class="combo-savings">💚 Ahorrás vs pagar en la barra</div>
+        <button class="btn btn-primary btn-full" onclick="addToCart('combo-nacional', 'Entrada + 3 Nacionales', 14000)">Agregar al Carrito 🛒</button>
+      </div>
+
+      <div class="combo-card gold-c">
+        <span class="combo-badge b-gold">🥃 Premium</span>
+        <div class="combo-icon">🎟️🥃</div>
+        <div class="combo-name">Entrada + 2 Tragos Premium</div>
+        <div class="combo-desc">Entrada anticipada + 2 consumiciones de trago premium a elección: Vodka, Jagger, New Age, Buhero.</div>
+        <ul class="combo-includes">
+          <li><span class="tick">✓</span> Entrada a ELE Multiespacio</li>
+          <li><span class="tick">✓</span> 2 tragos premium a elección</li>
+          <li><span class="tick">✓</span> QR de ingreso + QR de barra</li>
+          <li><span class="tick">✓</span> Acceso prioritario</li>
+        </ul>
+        <div class="combo-price">$18.000</div>
+        <div class="combo-savings">💚 Ahorrás vs precio de barra</div>
+        <button class="btn btn-gold btn-full" onclick="addToCart('combo-premium', 'Entrada + 2 Tragos Premium', 18000)">Agregar al Carrito 🛒</button>
+      </div>
+
+      <div class="combo-card cyan-c">
+        <span class="combo-badge b-cyan">👥 Grupo x4</span>
+        <div class="combo-icon">🎟️🥂</div>
+        <div class="combo-name">Pack x4 + Jagger & Speed</div>
+        <div class="combo-desc">4 entradas + 1 botella de Jagger con Speed para compartir. Incluye mesa reservada para el grupo.</div>
+        <ul class="combo-includes">
+          <li><span class="tick">✓</span> 4 entradas a ELE Multiespacio</li>
+          <li><span class="tick">✓</span> 1 botella Jagger + Speed ($60mil)</li>
+          <li><span class="tick">✓</span> Mesa reservada para el grupo</li>
+          <li><span class="tick">✓</span> QRs individuales de ingreso</li>
+        </ul>
+        <div class="combo-price">$84.000</div>
+        <div class="combo-savings">💚 Todo incluido sin sorpresas</div>
+        <button class="btn btn-outline btn-full" onclick="addToCart('combo-grupo', 'Pack x4 + Jagger & Speed', 84000)">Agregar al Carrito 🛒</button>
+      </div>
+
+      <div class="combo-card pink-c">
+        <span class="combo-badge b-pink">⚡ Madrugada</span>
+        <div class="combo-icon">🎟️⚡</div>
+        <div class="combo-name">Entrada + New Age & Speed</div>
+        <div class="combo-desc">Entrada anticipada + 1 botella de New Age con Speed. Válido de 1 a 4hs, el clásico de la madrugada de ELE.</div>
+        <ul class="combo-includes">
+          <li><span class="tick">✓</span> Entrada a ELE Multiespacio</li>
+          <li><span class="tick">✓</span> 1 botella New Age + Speed</li>
+          <li><span class="tick">✓</span> QR de ingreso + QR de barra</li>
+          <li><span class="tick">✓</span> Válido de 1 a 4hs</li>
+        </ul>
+        <div class="combo-price">$36.000</div>
+        <div class="combo-savings">💚 Ahorrás $6mil combinando</div>
+        <button class="btn btn-primary btn-full" onclick="addToCart('combo-newage', 'Entrada + New Age & Speed', 36000)">Agregar al Carrito 🛒</button>
+      </div>
+
+      <div class="combo-card gold-c">
+        <span class="combo-badge b-gold">👑 VIP</span>
+        <div class="combo-icon">🎟️🍾</div>
+        <div class="combo-name">VIP: Entrada + Nuvo & Speed</div>
+        <div class="combo-desc">La experiencia completa de ELE. Entrada VIP + botella de Nuvo con Speed + mesa reservada con servicio incluido.</div>
+        <ul class="combo-includes">
+          <li><span class="tick">✓</span> Entrada VIP a ELE Multiespacio</li>
+          <li><span class="tick">✓</span> 1 botella Nuvo + Speed ($150mil)</li>
+          <li><span class="tick">✓</span> Mesa reservada + servicio</li>
+          <li><span class="tick">✓</span> Acceso VIP sin fila</li>
+        </ul>
+        <div class="combo-price">$156.000</div>
+        <div class="combo-savings">💚 Precio final, sin extras</div>
+        <button class="btn btn-gold btn-full" onclick="addToCart('combo-vip', 'VIP: Entrada + Nuvo & Speed', 156000)">Agregar al Carrito 🛒</button>
+      </div>
+
+      <div class="combo-card cyan-c">
+        <span class="combo-badge b-cyan">🥥 Tropical</span>
+        <div class="combo-icon">🎟️🥥</div>
+        <div class="combo-name">Entrada + Malibú & Naranja</div>
+        <div class="combo-desc">Entrada anticipada + 1 botella de Malibú con jugo de naranja. Fresco, tropical y para toda la noche.</div>
+        <ul class="combo-includes">
+          <li><span class="tick">✓</span> Entrada a ELE Multiespacio</li>
+          <li><span class="tick">✓</span> 1 botella Malibú + Jugo Naranja</li>
+          <li><span class="tick">✓</span> QR de ingreso + QR de barra</li>
+          <li><span class="tick">✓</span> Válido toda la noche</li>
+        </ul>
+        <div class="combo-price">$51.000</div>
+        <div class="combo-savings">💚 Ahorrás vs precio normal</div>
+        <button class="btn btn-outline btn-full" onclick="addToCart('combo-malibu', 'Entrada + Malibú & Naranja', 51000)">Agregar al Carrito 🛒</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TRAGOS -->
+<section id="tragos">
+  <div class="container" style="padding-bottom:80px;">
+    <div class="section-label">Pedí desde acá</div>
+    <h2 class="section-title">PROMO<br>BOTELLAS</h2>
+    <p class="section-desc">Elegí tu botella y pagala junto con tu entrada. Válido de 1 a 4hs · Solo los viernes.</p>
+
+    <div class="promo-header">
+      <div class="promo-title">🍾 PROMO BOTELLAS</div>
+      <div style="color:var(--muted);font-size:.86rem;margin:6px 0 12px;">Precios especiales online · 🔞 Solo mayores de 18 años</div>
+      <div class="promo-horario">🕐 Válido de 1 a 4hs — Solo viernes</div>
+    </div>
+
+    <div class="drinks-grid" id="drinksGrid"></div>
+  </div>
+</section>
+
+<div style="height:60px;"></div>
+
+<!-- CART BUTTON -->
+<button class="cart-btn" onclick="toggleCart()">
+  🛒
+  <div class="badge" id="cartBadge" style="display: none;">0</div>
+</button>
+
+<!-- CART PANEL -->
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <h3>Tu Pedido</h3>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cartItems">
+    <div class="cart-empty">Tu carrito está vacío</div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total</span>
+      <strong id="cartTotal">$0</strong>
+    </div>
+    
+    <div id="checkoutForm" style="display:none; margin-bottom: 20px;">
+      <input type="text" id="chkName" placeholder="Nombre y Apellido" style="width:100%; margin-bottom:10px; padding:12px; background:rgba(0,0,0,0.5); border:1px solid var(--border-light); color:#fff; border-radius:4px;">
+      <input type="email" id="chkEmail" placeholder="Tu Email (Aquí llegarán los QR)" style="width:100%; margin-bottom:10px; padding:12px; background:rgba(0,0,0,0.5); border:1px solid var(--border-light); color:#fff; border-radius:4px;">
+    </div>
+
+    <button class="btn btn-gold btn-full" id="btnCheckout" onclick="proceedToCheckout()">Ir a Pagar 💳</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <strong>ELE MULTIESPACIO</strong>
+    <span>Comodoro Rivadavia · Chubut · Argentina · Solo los viernes</span>
+    <br><br>
+    <span>🔞 La venta de alcohol es exclusiva para mayores de 18 años · Ley 24.788</span>
+    <br>
+    <span style="color:var(--neon-cyan);">@ele.multiespacio</span>
+    <br><br>
+    <a href="#" onclick="openTerms(); return false;" style="color: var(--muted); text-decoration: underline; font-size: 0.8rem; transition: color 0.2s;">Ver Términos y Condiciones</a>
+  </div>
+</footer>
+
+<!-- TERMS MODAL -->
+<div class="toast" id="toast"></div>
+<a href="https://www.instagram.com/ele_multiespacio?igsh=N3YzeGxja2g1bDE5" target="_blank" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:10px; color:var(--neon-pink); margin-top:20px;">
+  <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.282.11-.705.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+  </svg>
+  Seguinos en Instagram
+</a>
+
+<script>
+  /* === TERMS MODAL === */
+  function openTerms() {
+      document.getElementById('termsModal').classList.add('on');
+  }
+
+  /* === NEXT FRIDAY === */
+  function nextFriday() {
+    const now = new Date();
+    const d = now.getDay(); // 0=dom 5=vie
+    const diff = d === 5 ? 0 : (5 - d + 7) % 7;
+    const f = new Date(now);
+    f.setDate(now.getDate() + diff);
+    return f;
+  }
+  function fmtDate(d) {
+    const m = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    return `Viernes ${d.getDate()} de ${m[d.getMonth()]} ${d.getFullYear()}`;
+  }
+  function initDate() {
+    const f = nextFriday();
+    const fmt = fmtDate(f);
+    const isToday = f.toDateString() === new Date().toDateString();
+    document.getElementById('heroDate').textContent  = `📅 ${fmt}`;
+    document.getElementById('heroBadge').textContent = isToday ? '🔥 ¡Esta Noche — Entrá!' : `🔥 Próximo Viernes — ${fmt}`;
+  }
+
+  /* === DRINKS === */
+  const drinks = [
+    { id:'drink-1', name:'Jagger + Speed', emoji:'🖤', desc:'Jägermeister con Speed.', price:60000 },
+    { id:'drink-2', name:'Nuvo + Speed', emoji:'🌸', desc:'Nuvo Sparkling Liqueur con Speed.', price:150000 },
+    { id:'drink-3', name:'Malibú + Jugo', emoji:'🥥', desc:'Licor de coco con jugo de naranja.', price:45000 },
+    { id:'drink-4', name:'Vodka + Speed', emoji:'💎', desc:'Vodka premium con Speed.', price:40000 },
+    { id:'drink-5', name:'New Age + Speed', emoji:'⚡', desc:'New Age con Speed.', price:30000 },
+    { id:'drink-6', name:'Buhero + Tónica', emoji:'🌿', desc:'Gin Buhero con agua tónica.', price:40000 },
+  ];
+
+  function renderDrinks() {
+    document.getElementById('drinksGrid').innerHTML = drinks.map(d => `
+      <div class="drink-card">
+        <div class="drink-emoji">${d.emoji}</div>
+        <div class="drink-name">${d.name}</div>
+        <div class="drink-desc">${d.desc}</div>
+        <div class="drink-footer" style="margin-bottom: 16px;">
+          <div class="drink-price">$${(d.price/1000).toFixed(0)}mil</div>
+        </div>
+        <button class="btn btn-outline btn-full" onclick="addToCart('${d.id}', '${d.name}', ${d.price})">Agregar al Carrito 🛒</button>
+      </div>`).join('');
+  }
+
+  /* === CART SYSTEM === */
+  let cart = {}; // { 'general': { name: 'Entrada General', price: 6000, qty: 1 } }
+
+  function toggleCart() {
+    document.getElementById('cartPanel').classList.toggle('on');
+  }
+
+  function addToCart(id, name, price) {
+    if(cart[id]) {
+      cart[id].qty += 1;
+    } else {
+      cart[id] = { name, price, qty: 1 };
+    }
+    toast('🛒 Agregado al carrito');
+    updateCartUI();
+  }
+
+  function updateQty(id, change) {
+    if(cart[id]) {
+      cart[id].qty += change;
+      if(cart[id].qty <= 0) {
+        delete cart[id];
+      }
+      updateCartUI();
+    }
+  }
+
+  function updateCartUI() {
+    const itemsEl = document.getElementById('cartItems');
+    const badgeEl = document.getElementById('cartBadge');
+    const totalEl = document.getElementById('cartTotal');
+    const chkForm = document.getElementById('checkoutForm');
+    const btnChk = document.getElementById('btnCheckout');
+    
+    let totalQty = 0;
+    let totalPrice = 0;
+    let html = '';
+
+    for(let id in cart) {
+      const item = cart[id];
+      totalQty += item.qty;
+      totalPrice += item.price * item.qty;
+      html += `
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <h4>${item.name}</h4>
+            <p>$${item.price.toLocaleString('es-AR')}</p>
+          </div>
+          <div class="cart-item-controls">
+            <button class="qty-btn" onclick="updateQty('${id}', -1)">-</button>
+            <div class="qty-display">${item.qty}</div>
+            <button class="qty-btn" onclick="updateQty('${id}', 1)">+</button>
+          </div>
+        </div>
+      `;
+    }
+
+    if(totalQty > 0) {
+      itemsEl.innerHTML = html;
+      badgeEl.style.display = 'flex';
+      badgeEl.innerText = totalQty;
+      chkForm.style.display = 'block';
+      btnChk.disabled = false;
+      btnChk.innerText = 'Pagar con Mercado Pago 💳';
+    } else {
+      itemsEl.innerHTML = '<div class="cart-empty">Tu carrito está vacío</div>';
+      badgeEl.style.display = 'none';
+      chkForm.style.display = 'none';
+      btnChk.disabled = true;
+      btnChk.innerText = 'Agrega productos';
+    }
+
+    totalEl.innerText = '$' + totalPrice.toLocaleString('es-AR');
+  }
+
+  let isCheckingOut = false;
+  async function proceedToCheckout() {
+    if(isCheckingOut) return;
+    const name = document.getElementById('chkName').value.trim();
+    const email = document.getElementById('chkEmail').value.trim();
+
+    if(!name || !email) {
+      toast('⚠️ Completa tu nombre y email', true);
+      return;
+    }
+
+    const items = Object.values(cart);
+    if(items.length === 0) return;
+
+    isCheckingOut = true;
+    const btnChk = document.getElementById('btnCheckout');
+    btnChk.innerText = 'Generando link seguro... ⏳';
+
+    try {
+      // LLAMADA AL BACKEND REAL (Netlify Functions)
+      const res = await fetch('/.netlify/functions/create-preference', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ buyer: { name, email }, items })
+      });
+
+      if(!res.ok) throw new Error('Error en el servidor');
+      const data = await res.json();
+
+      // Redirigir a Mercado Pago
+      if(data.init_point) {
+        window.location.href = data.init_point;
+      } else {
+        throw new Error('No se recibió init_point');
+      }
+
+    } catch (e) {
+      console.error(e);
+      toast('⚠️ Aún no está configurado el servidor real de Mercado Pago.', true);
+      isCheckingOut = false;
+      btnChk.innerText = 'Reintentar 💳';
+    }
+  }
+
+  /* === MODALS === */
+  function closeM(id){ document.getElementById(id).classList.remove('on'); }
+  document.querySelectorAll('.modal-bg').forEach(el=>el.addEventListener('click',e=>{if(e.target===el)el.classList.remove('on');}));
+
+  /* === TOAST === */
+  function toast(msg,warn){
+    const t=document.getElementById('toast');
+    t.textContent=msg; t.className='toast on'+(warn?' warn':'');
+    setTimeout(()=>t.className='toast',3200);
+  }
+
+  /* === INIT === */
+  document.addEventListener('DOMContentLoaded',()=>{ initDate(); renderDrinks(); });
+</script>
+</body>
+</html>

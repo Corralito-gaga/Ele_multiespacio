@@ -1,0 +1,11 @@
+{
+  "name": "ele-multiespacio",
+  "version": "1.0.0",
+  "description": "Backend para Ele Multiespacio",
+  "main": "index.js",
+  "dependencies": {
+    "mercadopago": "^2.0.15",
+    "resend": "^3.2.0",
+    "qrcode": "^1.5.3"
+  }
+}
