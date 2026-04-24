@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ELE Multiespacio — Entradas & Tragos</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ORBS -->
+  <div class="orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- +18 BANNER -->
+  <div class="age-banner">
+    🔞 Venta de bebidas alcohólicas exclusiva para mayores de 18 años
+    <span>·</span> Está prohibida su venta a menores · Bebé con responsabilidad
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container">
+      <span class="nav-logo">ELE Multiespacio</span>
+      <div class="nav-links">
+        <a href="#entradas">Entradas</a>
+        <a href="#tragos">Promo Botellas</a>
+        <a href="https://www.instagram.com/ele_multiespacio?igsh=N3YzeGxja2g1bDE5" target="_blank"
+          style="color: var(--neon-cyan);">Instagram</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <video src="Logo_illuminates_bowling_202604230049.mp4" autoplay loop muted playsinline
+        style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%; border: 2px solid var(--gold-primary); box-shadow: 0 0 30px rgba(212,175,55, 0.4); margin-bottom: 24px; pointer-events: none;"></video><br>
+      <div class="hero-badge" id="heroBadge">🔥 Cargando...</div>
+      <h1>ELE<br>MULTIESPACIO</h1>
+      <p class="hero-sub">Los viernes son de ele, ninguno como nosotros, porque somos los mejores del condado.</p>
+      <div class="hero-date" id="heroDate">—</div>
+      <div class="hero-ctas">
+        <a href="#entradas" class="btn btn-primary">🎟️ Comprar Entrada</a>
+        <a href="#tragos" class="btn btn-gold">🍾 Promo Botellas</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFO STRIP -->
+  <div class="info-strip">
+    <div class="container">
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-icon">📍</div><strong>Ubicación</strong><span>Comodoro Rivadavia, Chubut</span>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🕛</div><strong>Solo los Viernes</strong><span>Apertura de puertas: 02:00 am</span>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🪩</div><strong>Música</strong><span>RKT · Guaracha · Funk</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENTRADAS -->
+  <section id="entradas">
+    <div class="container" style="padding-top:80px; padding-bottom:60px;">
+      <div class="section-label">Anticipadas · Solo Viernes</div>
+      <h2 class="section-title">COMPRÁ<br>TU ENTRADA</h2>
+      <p class="section-desc">Elegí la entrada que más te conviene: sola o en combo con consumiciones. Más barato que en
+        la puerta.</p>
+
+      <!-- +18 WARNING -->
+      <div class="age-warning-box">
+        <div class="aw-icon">🔞</div>
+        <div>
+          <strong>Solo mayores de 18 años</strong>
+          <p>Los combos con bebidas alcohólicas son exclusivos para mayores de 18. Se controlará DNI en la entrada del
+            evento. Es obligatorio por ley.</p>
+        </div>
+      </div>
+
+      <!-- ENTRADA GENERAL -->
+      <div class="ticket-general">
+        <div class="tg-badge">⭐ Más vendida</div>
+        <div>
+          <div class="tg-icon">🎟️</div>
+          <div class="tg-name">Entrada General + Trago Gratis</div>
+          <div class="tg-desc">La entrada anticipada de ELE. Incluye acceso + 1 trago gratis a tu elección en la barra.
+            QR personal para presentar en puerta.</div>
+          <ul class="tg-features">
+            <li><span class="tick">✓</span> Entrada a ELE Multiespacio</li>
+            <li><span class="tick">✓</span> 1 trago gratis a elección</li>
+            <li><span class="tick">✓</span> QR de ingreso personalizado</li>
+            <li><span class="tick">✓</span> Acceso prioritario</li>
+          </ul>
+          <button class="btn btn-primary" onclick="addToCart('general', 'Entrada General', 6000)">Agregar al Carrito
+            🛒</button>
+        </div>
+        <div class="tg-right">
+          <div class="tg-price">$6.000</div>
+          <div class="tg-price-note">Precio anticipado · Pago único</div>
+        </div>
+      </div>
+
+      <!-- COMBOS -->
+      <div class="combos-title">🍾 COMBOS ESPECIALES</div>
+      <div class="combos-sub">Entrada más consumiciones. Elegís, pagás y listo.</div>
+      <div class="combos-grid">
+
+        <div class="combo-card pink-c">
+          <span class="combo-badge b-pink">🍺 Nacional</span>
+          <div class="combo-icon">🎟️🍺</div>
+          <div class="combo-name">Entrada + 3 Nacionales</div>
+          <div class="combo-desc">Entrada anticipada + 3 consumiciones de trago nacional. Para arrancar sin preocuparte
+            por la barra.</div>
+          <ul class="combo-includes">
+            <li><span class="tick">✓</span> Entrada a ELE Multiespacio</li>
+            <li><span class="tick">✓</span> 3 consumiciones de trago nacional</li>
+            <li><span class="tick">✓</span> QR de ingreso + QR de barra</li>
+            <li><span class="tick">✓</span> Sin fila en la barra</li>
+          </ul>
+          <div class="combo-price">$14.000</div>
+          <div class="combo-savings">💚 Ahorrás vs pagar en la barra</div>
+          <button class="btn btn-primary btn-full"
+            onclick="addToCart('combo-nacional', 'Entrada + 3 Nacionales', 14000)">Agregar al Carrito 🛒</button>
+        </div>
+
+        <div class="combo-card gold-c">
+          <span class="combo-badge b-gold">🥃 Premium</span>
+          <div class="combo-icon">🎟️🥃</div>
+          <div class="combo-name">Entrada + 2 Tragos Premium</div>
+          <div class="combo-desc">Entrada anticipada + 2 consumiciones de trago premium a elección: Vodka, Jagger, New
+            Age, Buhero.</div>
+          <ul class="combo-includes">
+            <li><span class="tick">✓</span> Entrada a ELE Multiespacio</li>
+            <li><span class="tick">✓</span> 2 tragos premium a elección</li>
+            <li><span class="tick">✓</span> QR de ingreso + QR de barra</li>
+            <li><span class="tick">✓</span> Acceso prioritario</li>
+          </ul>
+          <div class="combo-price">$18.000</div>
+          <div class="combo-savings">💚 Ahorrás vs precio de barra</div>
+          <button class="btn btn-gold btn-full"
+            onclick="addToCart('combo-premium', 'Entrada + 2 Tragos Premium', 18000)">Agregar al Carrito 🛒</button>
+        </div>
+
+        <div class="combo-card cyan-c">
+          <span class="combo-badge b-cyan">👥 Grupo x4</span>
+          <div class="combo-icon">🎟️🥂</div>
+          <div class="combo-name">Pack x4 + Jagger & Speed</div>
+          <div class="combo-desc">4 entradas + 1 botella de Jagger con Speed para compartir. Incluye mesa reservada para
+            el grupo.</div>
+          <ul class="combo-includes">
+            <li><span class="tick">✓</span> 4 entradas a ELE Multiespacio</li>
+            <li><span class="tick">✓</span> 1 botella Jagger + Speed ($60mil)</li>
+            <li><span class="tick">✓</span> Mesa reservada para el grupo</li>
+            <li><span class="tick">✓</span> QRs individuales de ingreso</li>
+          </ul>
+          <div class="combo-price">$84.000</div>
+          <div class="combo-savings">💚 Todo incluido sin sorpresas</div>
+          <button class="btn btn-outline btn-full"
+            onclick="addToCart('combo-grupo', 'Pack x4 + Jagger & Speed', 84000)">Agregar al Carrito 🛒</button>
+        </div>
+
+        <div class="combo-card pink-c">
+          <span class="combo-badge b-pink">⚡ Madrugada</span>
+          <div class="combo-icon">🎟️⚡</div>
+          <div class="combo-name">Entrada + New Age & Speed</div>
+          <div class="combo-desc">Entrada anticipada + 1 botella de New Age con Speed. Válido de 1 a 4hs, el clásico de
+            la madrugada de ELE.</div>
+          <ul class="combo-includes">
+            <li><span class="tick">✓</span> Entrada a ELE Multiespacio</li>
+            <li><span class="tick">✓</span> 1 botella New Age + Speed</li>
+            <li><span class="tick">✓</span> QR de ingreso + QR de barra</li>
+            <li><span class="tick">✓</span> Válido de 1 a 4hs</li>
+          </ul>
+          <div class="combo-price">$36.000</div>
+          <div class="combo-savings">💚 Ahorrás $6mil combinando</div>
+          <button class="btn btn-primary btn-full"
+            onclick="addToCart('combo-newage', 'Entrada + New Age & Speed', 36000)">Agregar al Carrito 🛒</button>
+        </div>
+
+        <div class="combo-card gold-c">
+          <span class="combo-badge b-gold">👑 VIP</span>
+          <div class="combo-icon">🎟️🍾</div>
+          <div class="combo-name">VIP: Entrada + Nuvo & Speed</div>
+          <div class="combo-desc">La experiencia completa de ELE. Entrada VIP + botella de Nuvo con Speed + mesa
+            reservada con servicio incluido.</div>
+          <ul class="combo-includes">
+            <li><span class="tick">✓</span> Entrada VIP a ELE Multiespacio</li>
+            <li><span class="tick">✓</span> 1 botella Nuvo + Speed ($150mil)</li>
+            <li><span class="tick">✓</span> Mesa reservada + servicio</li>
+            <li><span class="tick">✓</span> Acceso VIP sin fila</li>
+          </ul>
+          <div class="combo-price">$156.000</div>
+          <div class="combo-savings">💚 Precio final, sin extras</div>
+          <button class="btn btn-gold btn-full"
+            onclick="addToCart('combo-vip', 'VIP: Entrada + Nuvo & Speed', 156000)">Agregar al Carrito 🛒</button>
+        </div>
+
+        <div class="combo-card cyan-c">
+          <span class="combo-badge b-cyan">🥥 Tropical</span>
+          <div class="combo-icon">🎟️🥥</div>
+          <div class="combo-name">Entrada + Malibú & Naranja</div>
+          <div class="combo-desc">Entrada anticipada + 1 botella de Malibú con jugo de naranja. Fresco, tropical y para
+            toda la noche.</div>
+          <ul class="combo-includes">
+            <li><span class="tick">✓</span> Entrada a ELE Multiespacio</li>
+            <li><span class="tick">✓</span> 1 botella Malibú + Jugo Naranja</li>
+            <li><span class="tick">✓</span> QR de ingreso + QR de barra</li>
+            <li><span class="tick">✓</span> Válido toda la noche</li>
+          </ul>
+          <div class="combo-price">$51.000</div>
+          <div class="combo-savings">💚 Ahorrás vs precio normal</div>
+          <button class="btn btn-outline btn-full"
+            onclick="addToCart('combo-malibu', 'Entrada + Malibú & Naranja', 51000)">Agregar al Carrito 🛒</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAGOS -->
+  <section id="tragos">
+    <div class="container" style="padding-bottom:80px;">
+      <div class="section-label">Pedí desde acá</div>
+      <h2 class="section-title">PROMO<br>BOTELLAS</h2>
+      <p class="section-desc">Elegí tu botella y pagala junto con tu entrada. Válido de 1 a 4hs · Solo los viernes.</p>
+
+      <div class="promo-header">
+        <div class="promo-title">🍾 PROMO BOTELLAS</div>
+        <div style="color:var(--muted);font-size:.86rem;margin:6px 0 12px;">Precios especiales online · 🔞 Solo mayores
+          de 18 años</div>
+        <div class="promo-horario">🕐 Válido de 1 a 4hs — Solo viernes</div>
+      </div>
+
+      <div class="drinks-grid" id="drinksGrid"></div>
+    </div>
+  </section>
+
+  <div style="height:60px;"></div>
+
+  <!-- CART BUTTON -->
+  <button class="cart-btn" onclick="toggleCart()">
+    🛒
+    <div class="badge" id="cartBadge" style="display: none;">0</div>
+  </button>
+
+  <!-- CART PANEL -->
+  <div class="cart-panel" id="cartPanel">
+    <div class="cart-header">
+      <h3>Tu Pedido</h3>
+      <button class="cart-close" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-body" id="cartItems">
+      <div class="cart-empty">Tu carrito está vacío</div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <strong id="cartTotal">$0</strong>
+      </div>
+
+      <div id="checkoutForm" style="display:none; margin-bottom: 20px;">
+        <input type="text" id="chkName" placeholder="Nombre y Apellido"
+          style="width:100%; margin-bottom:10px; padding:12px; background:rgba(0,0,0,0.5); border:1px solid var(--border-light); color:#fff; border-radius:4px;">
+        <input type="email" id="chkEmail" placeholder="Tu Email (Aquí llegarán los QR)"
+          style="width:100%; margin-bottom:10px; padding:12px; background:rgba(0,0,0,0.5); border:1px solid var(--border-light); color:#fff; border-radius:4px;">
+      </div>
+
+      <button class="btn btn-gold btn-full" id="btnCheckout" onclick="proceedToCheckout()">Ir a Pagar 💳</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <strong>ELE MULTIESPACIO</strong>
+      <span>Comodoro Rivadavia · Chubut · Argentina · Solo los viernes</span>
+      <br><br>
+      <span>🔞 La venta de alcohol es exclusiva para mayores de 18 años · Ley 24.788</span>
+      <br>
+      <span style="color:var(--neon-cyan);">@ele.multiespacio</span>
+      <br><br>
+      <a href="#" onclick="openTerms(); return false;"
+        style="color: var(--muted); text-decoration: underline; font-size: 0.8rem; transition: color 0.2s;">Ver Términos
+        y Condiciones</a>
+    </div>
+  </footer>
+
+  <!-- TERMS MODAL -->
+  <div class="toast" id="toast"></div>
+  <a href="https://www.instagram.com/ele_multiespacio?igsh=N3YzeGxja2g1bDE5" target="_blank"
+    style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:10px; color:var(--neon-pink); margin-top:20px;">
+    <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+      <path
+        d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.282.11-.705.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+    </svg>
+    Seguinos en Instagram
+  </a>
+
+  <script>
+    /* === TERMS MODAL === */
+    function openTerms() {
+      document.getElementById('termsModal').classList.add('on');
+    }
+
+    /* === NEXT FRIDAY === */
+    function nextFriday() {
+      const now = new Date();
+      const d = now.getDay(); // 0=dom 5=vie
+      const diff = d === 5 ? 0 : (5 - d + 7) % 7;
+      const f = new Date(now);
+      f.setDate(now.getDate() + diff);
+      return f;
+    }
+    function fmtDate(d) {
+      const m = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+      return `Viernes ${d.getDate()} de ${m[d.getMonth()]} ${d.getFullYear()}`;
+    }
+    function initDate() {
+      const f = nextFriday();
+      const fmt = fmtDate(f);
+      const isToday = f.toDateString() === new Date().toDateString();
+      document.getElementById('heroDate').textContent = `📅 ${fmt}`;
+      document.getElementById('heroBadge').textContent = isToday ? '🔥 ¡Esta Noche — Entrá!' : `🔥 Próximo Viernes — ${fmt}`;
+    }
+
+    /* === DRINKS === */
+    const drinks = [
+      { id: 'drink-1', name: 'Jagger + Speed', emoji: '🖤', desc: 'Jägermeister con Speed.', price: 60000 },
+      { id: 'drink-2', name: 'Nuvo + Speed', emoji: '🌸', desc: 'Nuvo Sparkling Liqueur con Speed.', price: 150000 },
+      { id: 'drink-3', name: 'Malibú + Jugo', emoji: '🥥', desc: 'Licor de coco con jugo de naranja.', price: 45000 },
+      { id: 'drink-4', name: 'Vodka + Speed', emoji: '💎', desc: 'Vodka premium con Speed.', price: 40000 },
+      { id: 'drink-5', name: 'New Age + Speed', emoji: '⚡', desc: 'New Age con Speed.', price: 30000 },
+      { id: 'drink-6', name: 'Buhero + Tónica', emoji: '🌿', desc: 'Gin Buhero con agua tónica.', price: 40000 },
+    ];
+
+    function renderDrinks() {
+      document.getElementById('drinksGrid').innerHTML = drinks.map(d => `
+      <div class="drink-card">
+        <div class="drink-emoji">${d.emoji}</div>
+        <div class="drink-name">${d.name}</div>
+        <div class="drink-desc">${d.desc}</div>
+        <div class="drink-footer" style="margin-bottom: 16px;">
+          <div class="drink-price">$${(d.price / 1000).toFixed(0)}mil</div>
+        </div>
+        <button class="btn btn-outline btn-full" onclick="addToCart('${d.id}', '${d.name}', ${d.price})">Agregar al Carrito 🛒</button>
+      </div>`).join('');
+    }
+
+    /* === CART SYSTEM === */
+    let cart = {}; // { 'general': { name: 'Entrada General', price: 6000, qty: 1 } }
+
+    function toggleCart() {
+      document.getElementById('cartPanel').classList.toggle('on');
+    }
+
+    function addToCart(id, name, price) {
+      if (cart[id]) {
+        cart[id].qty += 1;
+      } else {
+        cart[id] = { name, price, qty: 1 };
+      }
+      toast('🛒 Agregado al carrito');
+      updateCartUI();
+    }
+
+    function updateQty(id, change) {
+      if (cart[id]) {
+        cart[id].qty += change;
+        if (cart[id].qty <= 0) {
+          delete cart[id];
+        }
+        updateCartUI();
+      }
+    }
+
+    function updateCartUI() {
+      const itemsEl = document.getElementById('cartItems');
+      const badgeEl = document.getElementById('cartBadge');
+      const totalEl = document.getElementById('cartTotal');
+      const chkForm = document.getElementById('checkoutForm');
+      const btnChk = document.getElementById('btnCheckout');
+
+      let totalQty = 0;
+      let totalPrice = 0;
+      let html = '';
+
+      for (let id in cart) {
+        const item = cart[id];
+        totalQty += item.qty;
+        totalPrice += item.price * item.qty;
+        html += `
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <h4>${item.name}</h4>
+            <p>$${item.price.toLocaleString('es-AR')}</p>
+          </div>
+          <div class="cart-item-controls">
+            <button class="qty-btn" onclick="updateQty('${id}', -1)">-</button>
+            <div class="qty-display">${item.qty}</div>
+            <button class="qty-btn" onclick="updateQty('${id}', 1)">+</button>
+          </div>
+        </div>
+      `;
+      }
+
+      if (totalQty > 0) {
+        itemsEl.innerHTML = html;
+        badgeEl.style.display = 'flex';
+        badgeEl.innerText = totalQty;
+        chkForm.style.display = 'block';
+        btnChk.disabled = false;
+        btnChk.innerText = 'Pagar con Mercado Pago 💳';
+      } else {
+        itemsEl.innerHTML = '<div class="cart-empty">Tu carrito está vacío</div>';
+        badgeEl.style.display = 'none';
+        chkForm.style.display = 'none';
+        btnChk.disabled = true;
+        btnChk.innerText = 'Agrega productos';
+      }
+
+      totalEl.innerText = '$' + totalPrice.toLocaleString('es-AR');
+    }
+
+    let isCheckingOut = false;
+    async function proceedToCheckout() {
+      if (isCheckingOut) return;
+      const name = document.getElementById('chkName').value.trim();
+      const email = document.getElementById('chkEmail').value.trim();
+
+      if (!name || !email) {
+        toast('⚠️ Completa tu nombre y email', true);
+        return;
+      }
+
+      const items = Object.values(cart);
+      if (items.length === 0) return;
+
+      isCheckingOut = true;
+      const btnChk = document.getElementById('btnCheckout');
+      btnChk.innerText = 'Generando link seguro... ⏳';
+
+      try {
+        // LLAMADA AL BACKEND REAL (Netlify Functions)
+        const res = await fetch('/.netlify/functions/create-preference', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ buyer: { name, email }, items })
+        });
+
+        if (!res.ok) throw new Error('Error en el servidor');
+        const data = await res.json();
+
+        // Redirigir a Mercado Pago
+        if (data.init_point) {
+          window.location.href = data.init_point;
+        } else {
+          throw new Error('No se recibió init_point');
+        }
+
+      } catch (e) {
+        console.error(e);
+        toast('⚠️ Aún no está configurado el servidor real de Mercado Pago.', true);
+        isCheckingOut = false;
+        btnChk.innerText = 'Reintentar 💳';
+      }
+    }
+
+    /* === MODALS === */
+    function closeM(id) { document.getElementById(id).classList.remove('on'); }
+    document.querySelectorAll('.modal-bg').forEach(el => el.addEventListener('click', e => { if (e.target === el) el.classList.remove('on'); }));
+
+    /* === TOAST === */
+    function toast(msg, warn) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.className = 'toast on' + (warn ? ' warn' : '');
+      setTimeout(() => t.className = 'toast', 3200);
+    }
+
+    /* === INIT === */
+    document.addEventListener('DOMContentLoaded', () => { initDate(); renderDrinks(); });
+  </script>
+</body>
+
+</html>
